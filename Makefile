@@ -59,4 +59,4 @@ uninstall:
 -include $(DEPENDS)
 
 .PRECIOUS : $(OBJECTS)
-.PHONY : test build clean distclean uninstall
+.PHONY : test clean distclean uninstall
