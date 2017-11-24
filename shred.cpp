@@ -7,7 +7,7 @@
 #include <algorithm>
 
 #include "simple/file.hpp"
-#include "simple/enum.hpp"
+#include "simple/support/enum.hpp"
 
 using namespace std;
 using namespace std::literals;
@@ -49,7 +49,7 @@ struct _option_guts
 
 };
 
-using Option = Enum<_option_guts>;
+using Option = support::Enum<_option_guts>;
 using Options = Option::Type;
 
 string to_hex_string(int n)
