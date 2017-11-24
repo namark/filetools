@@ -41,7 +41,7 @@ struct _option_guts
 		static const map<string, Type> stringToOption
 		{
 			{ "-s"s, Type::PieceSize },
-			{ "-f"s, Type::Terminator }
+			{ "--"s, Type::Terminator }
 		};
 		auto found = stringToOption.find(name);
 		return found != stringToOption.end() ? found->second : Type::Invalid;
