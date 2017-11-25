@@ -7,7 +7,7 @@ Since these are file tools they all depend on [libsimple_file](https://github.co
 
 ## shred.cpp
 Splits a given file(s) into small pieces, generating a .info file(s) that can be used to reassemble them. You can specify the size of the pieces (in bytes) with the -s option, which affects all the files specified after it. The size can be specified several times in a single command. Use -- to prevent option parsing if it conflicts with your file name(s). <br />
-When run without parameters enters interactive mode, expecting a piece size followed by a list of files to "shred", input on spearate lines (not just separted with whitespace). To specify new size just input an empty line and the program will expect a size again. <br />
+When run without parameters enters interactive mode, expecting a piece size followed by a list of files to "shred", input on separate lines (not just separated with whitespace). To specify new size just input an empty line and the program will expect a size again. <br />
 Does not modify or delete the input files. <br />
 Any errors will likely terminate the program.
 
@@ -18,7 +18,7 @@ Any errors will likely terminate the program.
 
 ## glue.cpp
 Assembles a file(s) split by [shred](#shredcpp) program according to specified .info file(s). <br />
-When run without parameters enters interactive mode, expecting a list of .info files to "glue", input on spearate lines (not just separted with whitespace). <br />
+When run without parameters enters interactive mode, expecting a list of .info files to "glue", input on separate lines (not just separated with whitespace). <br />
 Does not modify or delete the input files or associated pieces. <br />
 Any errors will likely terminate the program.
 
@@ -57,12 +57,12 @@ cd ..
 rm -rf libsimple_file libsimple_support
 
 # build the entire project
-cd filetools 
+cd filetools
 make
 ```
 After this you should have all the binaries available in ./out directory, and can install them anywhere with `make install`(by default /usr/local/bin/).
 
-Each .cpp file is compiled to(and installed as) a binary with the same name, prefixed with the letter f, without an extension. <br /> 
+Each .cpp file is compiled to(and installed as) a binary with the same name, prefixed with the letter f, without an extension. <br />
 For example `swap.cpp` will turn into `fswap`.
 
 
