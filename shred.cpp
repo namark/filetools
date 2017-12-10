@@ -110,11 +110,9 @@ void process_arguments(deque<string> args)
 {
 	args.pop_front();
 	auto piece_size = default_piece_size;
-	Option option;
 	while(!args.empty())
 	{
-		option = Option(args.front());
-		switch(option)
+		switch(Option(args.front()))
 		{
 
 			case Options::PieceSize:
