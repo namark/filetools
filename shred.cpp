@@ -24,33 +24,18 @@ static const string ext_delim = "."s;
 
 static constexpr file::size_type default_piece_size = 256 * 1024;
 
-struct _option_guts
+enum class Options
 {
-
-	enum class Type
-	{
-		PieceSize,
-		Terminator,
-		Invalid
-	};
-
-	static constexpr Type Default = Type::Invalid;
-
-	static Type from(string name)
-	{
-		static const map<string, Type> stringToOption
-		{
-			{ "-s"s, Type::PieceSize },
-			{ "--"s, Type::Terminator }
-		};
-		auto found = stringToOption.find(name);
-		return found != stringToOption.end() ? found->second : Type::Invalid;
-	};
-
+	PieceSize,
+	Terminator,
+	Invalid
 };
-
-using Option = support::Enum<_option_guts>;
-using Options = Option::Type;
+using Option = support::MappedEnum<Options, Options::Invalid, 2>;
+template <> Option::Guts::map_type Option::Guts::map
+{{
+	{ "-s"s, "--size"s },
+	{ "--"s, "--files"s }
+}};
 
 string to_hex_string(int n)
 {
