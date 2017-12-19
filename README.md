@@ -30,13 +30,14 @@ Look how easy it is to swap two files now! Please don't ever use this...
 ---
 
 ## diff.cpp
-Couldn't find an option for existing diff tools to show difference byte by byte as opposed to line by line(I didn't look too hard) so thought I could write my own.It was fun. It takes two files and outputs the position and size of differences(additions/deletions) between them. Completely non standard output format but makes sense in the context of the underlying algorithm. <br />
+Couldn't find an option for existing diff tools to show difference byte by byte as opposed to line by line(I didn't look too hard) so thought I could write my own. It was fun. It takes two files and outputs the position and size of differences(additions/deletions) between them. Completely non standard output format but makes sense in the context of the underlying algorithm. <br />
 Does not modify or delete the input files or associated pieces. <br />
 Can't handle "large" files.<br />
 Any errors will likely terminate the program.
 
 **Additional dependencies** <br />
-[libsimple_geom](https://github.com/namark/libsimple_geom)
+[libsimple_geom](https://github.com/namark/libsimple_geom) <br />
+[libsimple_support](https://github.com/namark/libsimple_support)
 
 ---
 
