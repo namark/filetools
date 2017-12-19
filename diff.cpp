@@ -7,7 +7,6 @@
 #include "simple/support/arithmetic.hpp"
 
 using namespace simple::file;
-
 using index_type = simple::geom::vector<size_t, 2>;
 using double_buffer = std::pair<buffer<>, buffer<>>;
 
@@ -21,8 +20,7 @@ bool diff_at(const double_buffer& buffers, index_type position) // NOTE: can be 
 	return buffers.first[position.x()] != buffers.second[position.y()];
 }
 
-// NOTE: this is almost std::find_if, except the != bound comparison is not sufficient in this case... such a shame... i must be missing something...
-index_type find_change(const double_buffer& buffers, index_type start = index_type::zero())
+index_type find_change(const double_buffer& buffers, index_type start = index_type::zero()) // NOTE: this is almost std::find_if, except the != bound comparison is not sufficient in this case... such a shame... i must be missing something...
 {
 	auto size = get_size(buffers);
 	while(start < size)
@@ -34,8 +32,7 @@ index_type find_change(const double_buffer& buffers, index_type start = index_ty
 	return start;
 }
 
-// NOTE: could be generalized to N dimensions... not trivial and no obvious gain
-index_type measure_change(const double_buffer& buffers, index_type start)
+index_type measure_change(const double_buffer& buffers, index_type start) // NOTE: could be generalized to N dimensions... not trivial and no obvious gain
 {
 	auto distance = get_size(buffers) - start;
 
@@ -80,11 +77,8 @@ int main(int argc, char const* argv[]) try
 		return -1;
 	}
 
-	const auto buffers = std::make_pair(
-			dump(bropex(argv[1])),
-			dump(bropex(argv[2])) );
+	const auto buffers = std::make_pair( dump(bropex(argv[1])), dump(bropex(argv[2])) );
 	auto size = get_size(buffers);
-
 	auto it = index_type::zero();
 	while(it = find_change(buffers, it), it < size)
 	{
@@ -101,7 +95,6 @@ int main(int argc, char const* argv[]) try
 }
 catch(...)
 {
-	if(errno)
-		std::cout << "Oh nooo! " << std::strerror(errno) << '\n';
+	if(errno) std::cout << "Oh nooo! " << std::strerror(errno) << '\n';
 	throw;
 }
