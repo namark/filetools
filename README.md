@@ -29,6 +29,28 @@ Look how easy it is to swap two files now! Please don't ever use this...
 
 ---
 
+## diff.cpp
+Couldn't find an option for existing diff tools to show difference byte by byte as opposed to line by line(I didn't look too hard) so thought I could write my own.It was fun. It takes two files and outputs the position and size of differences(additions/deletions) between them. Completely non standard output format but makes sense in the context of the underlying algorithm. <br />
+Does not modify or delete the input files or associated pieces. <br />
+Can't handle "large" files.<br />
+Any errors will likely terminate the program.
+
+**Additional dependencies** <br />
+[libsimple_geom](https://github.com/namark/libsimple_geom)
+
+---
+
+## crop.cpp
+Displays a portion of a file, specified by a position and size(position:size), or a range(start-end). Has a lot(relatively) of parameters... I should document those as well... someday...<br />
+Does not modify or delete the input files or associated pieces. <br />
+Can't handle "large" files.<br />
+Any errors will likely terminate the program.
+
+**Additional dependencies** <br />
+[libsimple_support](https://github.com/namark/libsimple_support)
+
+---
+
 <br />
 <br />
 
@@ -42,19 +64,20 @@ git clone https://github.com/namark/filetools
 
 # get the dependencies
 git clone https://github.com/namark/libsimple_file
-git clone https://github.com/namark/libsimple_support # for shred.cpp
+git clone https://github.com/namark/libsimple_support
+git clone https://github.com/namark/libsimple_geom
 
 # install dependencies locally for this porject only
 cd libsimple_file
 make install PREFIX=../filetools
-cd ../libsimple_enum
-make install PREFIX=../filetools
 cd ../libsimple_support
+make install PREFIX=../filetools
+cd ../libsimple_geom
 make install PREFIX=../filetools
 cd ..
 
 # remove repositories of the dependencies
-rm -rf libsimple_file libsimple_support
+rm -rf libsimple_file libsimple_support libsimple_geom
 
 # build the entire project
 cd filetools
