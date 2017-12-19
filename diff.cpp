@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cmath>
+#include <cstring>
 #include "simple/file.hpp"
 #include "simple/geom/vector.hpp"
 #include "simple/support/arithmetic.hpp"
@@ -71,7 +72,7 @@ void showChange(index_type position, index_type change)
 		std::cout << position[i] << ":" << change[i] << '\n';
 }
 
-int main(int argc, char const* argv[])
+int main(int argc, char const* argv[]) try
 {
 	if(argc <= 2)
 	{
@@ -97,4 +98,10 @@ int main(int argc, char const* argv[])
 		showChange(it, change);
 
 	return 0;
+}
+catch(...)
+{
+	if(errno)
+		std::cout << "Oh nooo! " << std::strerror(errno) << '\n';
+	throw;
 }

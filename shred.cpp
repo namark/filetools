@@ -5,6 +5,7 @@
 #include <map>
 #include <functional>
 #include <algorithm>
+#include <cstring>
 
 #include "simple/file.hpp"
 #include "simple/support/enum.hpp"
@@ -135,11 +136,17 @@ void process_input()
 	}
 }
 
-int main(int argc, char const * argv[])
+int main(int argc, char const * argv[]) try
 {
 	process_arguments( {argv, argv + argc} );
 	if(argc < 2)
 		process_input();
 
 	return 0;
+}
+catch(...)
+{
+	if(errno)
+		std::cout << "Oh nooo! " << std::strerror(errno) << '\n';
+	throw;
 }

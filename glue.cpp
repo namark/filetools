@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 #include "simple/file.hpp"
 
 using namespace std;
@@ -41,7 +42,7 @@ void process_input()
 		glue(target);
 }
 
-int main(int argc, char const * argv[])
+int main(int argc, char const * argv[]) try
 {
 	if(argc < 2)
 		process_input();
@@ -49,4 +50,10 @@ int main(int argc, char const * argv[])
 		process_arguments(argc, argv);
 
 	return 0;
+}
+catch(...)
+{
+	if(errno)
+		std::cout << "Oh nooo! " << std::strerror(errno) << '\n';
+	throw;
 }

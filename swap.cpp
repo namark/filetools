@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 #include "simple/file.hpp"
 
 using namespace simple;
@@ -16,7 +17,7 @@ void swap(const std::string& onePath, const std::string& otherPath)
 	file::bwopex(otherPath) <<= one;
 }
 
-int main(int argc, char const* argv[])
+int main(int argc, char const* argv[]) try
 {
 	if(argc < 3)
 	{
@@ -30,4 +31,10 @@ int main(int argc, char const* argv[])
 	swap(argv[1], argv[2]);
 
 	return 0;
+}
+catch(...)
+{
+	if(errno)
+		std::cout << "Oh nooo! " << std::strerror(errno) << '\n';
+	throw;
 }
