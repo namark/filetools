@@ -1,7 +1,5 @@
 #include <iostream>
 #include <algorithm>
-#include <cmath>
-#include <cstring>
 #include "simple/file.hpp"
 #include "simple/geom/vector.hpp"
 #include "simple/support/arithmetic.hpp"
@@ -95,6 +93,6 @@ int main(int argc, char const* argv[]) try
 }
 catch(...)
 {
-	if(errno) std::cout << "Oh nooo! " << std::strerror(errno) << '\n';
+	if(errno) std::perror("Oh nooo!");
 	throw;
 }

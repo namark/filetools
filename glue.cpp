@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstring>
 #include "simple/file.hpp"
 
 using namespace std;
@@ -54,6 +53,6 @@ int main(int argc, char const * argv[]) try
 catch(...)
 {
 	if(errno)
-		std::cout << "Oh nooo! " << std::strerror(errno) << '\n';
+		std::perror("Oh nooo!");
 	throw;
 }
