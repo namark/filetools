@@ -8,6 +8,7 @@
 
 #include "simple/file.hpp"
 #include "simple/support/enum.hpp"
+#include "simple/support/misc.hpp"
 
 using namespace std;
 using namespace std::literals;
@@ -104,7 +105,7 @@ void process_arguments(deque<string> args)
 				args.pop_front();
 				if(args.empty())
 					return;
-				piece_size = stoull(args.front(), nullptr, 0);
+				piece_size = support::ston<file::size_type>(args.front());
 			break;
 
 			case Options::Terminator:
