@@ -4,6 +4,7 @@
 #include <string>
 #include "simple/file.hpp"
 #include "simple/support/enum.hpp"
+#include "simple/support/misc.hpp"
 
 using namespace simple;
 using namespace std::literals;
@@ -66,34 +67,7 @@ template <> Color::Guts::map_type Color::Guts::map
 	{ "white"s }
 }};
 
-std::pair<size_t,size_t> stoull_pair(const std::string& str)
-{
-	size_t separator;
-	auto first = std::stoull(str, &separator, 0);
-	auto second = std::stoull(str.substr(separator+1), nullptr, 0);
-	if(':' == str[separator])
-		second += first;
-	return {first, second};
-}
-
-template <typename Iterator>
-struct iterator_range
-{
-	using iterator_type = Iterator;
-	using array_type = std::array<iterator_type, 2>;
-	iterator_type& begin() { return raw[0]; }
-	iterator_type& end() { return raw[1]; }
-	const iterator_type& begin() const { return raw[0]; }
-	const iterator_type& end() const { return raw[1]; }
-
-	array_type raw;
-};
-template <typename Iterator>
-iterator_range<Iterator> make_iterator_range(Iterator begin, Iterator end)
-{
-	return {begin, end};
-}
-using const_range = iterator_range<file::buffer<>::const_iterator>;
+using const_range = support::range<file::buffer<>::const_iterator>;
 
 void print(const_range range, Format format, Color color = Colors::Invalid)
 {
@@ -132,15 +106,11 @@ void print(const_range range, Format format, Color color = Colors::Invalid)
 
 void crop(const string& filename, const string& range, Color color, size_t padding, Format format)
 {
-	auto p = stoull_pair(range);
-	auto source = file::dump(file::bropex(filename));
-	auto lower = std::min(source.begin() + p.first, source.end());
-	auto upper = std::min(source.begin() + p.second, source.end());
-	auto left = lower - std::min(p.first, padding);
-	auto right = upper + std::min<size_t>(source.end() - upper, padding);
-	print({left , lower}, format);
-	print({lower, upper}, format, color);
-	print({upper, right}, format);
+	auto r = support::storn<size_t>(range);
+	const auto source = file::dump(file::bropex(filename));
+	print(support::get_iterator_range(source, {r.lower()-padding , r.lower()}), format);
+	print(support::get_iterator_range(source, r), format, color);
+	print(support::get_iterator_range(source, {r.upper(), r.upper()+padding}), format);
 }
 
 void process_arguments(std::deque<string> args)
@@ -157,7 +127,7 @@ void process_arguments(std::deque<string> args)
 
 			case Options::Padding:
 				args.pop_front();
-				padding = stoull(args.at(0), nullptr, 0);
+				padding = support::ston<size_t>(args.at(0));
 			break;
 
 			case Options::Color:
