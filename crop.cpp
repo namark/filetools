@@ -5,6 +5,7 @@
 #include "simple/file.hpp"
 #include "simple/support/enum.hpp"
 #include "simple/support/misc.hpp"
+#include "simple/support/algorithm.hpp"
 
 using namespace simple;
 using namespace std::literals;
