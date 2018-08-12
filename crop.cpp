@@ -17,6 +17,7 @@ enum class Options
 	Color,
 	Source,
 	Format,
+	Separator,
 	Invalid
 };
 using Option = support::MappedEnum<Options, Options::Invalid, 2>;
@@ -26,6 +27,7 @@ template <> Option::Guts::map_type Option::Guts::map
 	{ "-c"s, "--color"s },
 	{ "-i"s, "--source"s },
 	{ "-f"s, "--format"s },
+	{ "-s"s, "--separator"s },
 }};
 
 enum class Formats
@@ -117,6 +119,7 @@ void crop(const string& filename, const string& range, Color color, size_t paddi
 void process_arguments(std::deque<string> args)
 {
 	string filename;
+	string separator;
 	Color color;
 	Format format;
 	size_t padding = 0;
@@ -141,6 +144,11 @@ void process_arguments(std::deque<string> args)
 				filename = args.at(0);
 			break;
 
+			case Options::Separator:
+				args.pop_front();
+				separator = args.at(0) + '\n';
+			break;
+
 			case Options::Format:
 				args.pop_front();
 				format = Format(args.at(0));
@@ -148,7 +156,7 @@ void process_arguments(std::deque<string> args)
 
 			default:
 				crop(filename, args.front(), color, padding, format);
-				std::cout << '\n';
+				std::cout << '\n' << separator;
 			break;
 
 		}
