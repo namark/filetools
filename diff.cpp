@@ -1,8 +1,10 @@
-#include <iostream>
+#include <cstdio>
 #include <algorithm>
 #include "simple/file.hpp"
 #include "simple/geom/vector.hpp"
+#include "simple/geom/segment.hpp"
 #include "simple/support/arithmetic.hpp"
+#include "simple/support/misc.hpp"
 
 using namespace simple::file;
 using index_type = simple::geom::vector<size_t, 2>;
@@ -62,16 +64,17 @@ index_type measure_change(const double_buffer& buffers, index_type start) // NOT
 
 void showChange(index_type position, index_type change)
 {
-	std::cout << "--------\n";
+	using simple::support::to_string;
+	std::puts("--------");
 	for(size_t i = 0; i < index_type::dimensions; ++i)
-		std::cout << position[i] << ":" << change[i] << '\n';
+		std::puts( to_string<index_type::value_type>(simple::geom::segment<size_t>{position[i], change[i]}, ':').c_str() );
 }
 
 int main(int argc, char const* argv[]) try
 {
 	if(argc <= 2)
 	{
-		std::cerr << "Need 2 parameters!" << '\n';
+		std::fputs("Need 2 parameters!", stderr);
 		return -1;
 	}
 
