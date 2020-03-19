@@ -20,8 +20,8 @@ enum class Options
 	Separator,
 	Invalid
 };
-using Option = support::MappedEnum<Options, Options::Invalid, 2>;
-template <> Option::Guts::map_type Option::Guts::map
+using Option = support::mapped_enum<Options, Options::Invalid, 2>;
+template <> Option::guts::map_type Option::guts::map
 {{
 	{ "-p"s, "--padding"s },
 	{ "-c"s, "--color"s },
@@ -37,8 +37,8 @@ enum class Formats
 	Hex,
 	Invalid
 };
-using Format = support::MappedEnum<Formats, Formats::Invalid>;
-template <> Format::Guts::map_type Format::Guts::map
+using Format = support::mapped_enum<Formats, Formats::Invalid>;
+template <> Format::guts::map_type Format::guts::map
 {{
 	{ "plain"s },
 	{ "one-line"s },
@@ -57,8 +57,8 @@ enum class Colors
 	White,
 	Invalid
 };
-using Color = support::MappedEnum<Colors, Colors::Invalid>;
-template <> Color::Guts::map_type Color::Guts::map
+using Color = support::mapped_enum<Colors, Colors::Invalid>;
+template <> Color::guts::map_type Color::guts::map
 {{
 	{ "black"s },
 	{ "red"s },
@@ -70,7 +70,8 @@ template <> Color::Guts::map_type Color::Guts::map
 	{ "white"s }
 }};
 
-using const_range = support::range<file::buffer<>::const_iterator>;
+using buffer = std::vector<unsigned char>;
+using const_range = support::range<buffer::const_iterator>;
 
 void print(const_range range, Format format, Color color = Colors::Invalid)
 {
@@ -110,7 +111,7 @@ void print(const_range range, Format format, Color color = Colors::Invalid)
 void crop(const string& filename, const string& range, Color color, size_t padding, Format format)
 {
 	auto r = support::storn<size_t>(range);
-	const auto source = file::dump(file::bropex(filename));
+	const auto source = file::dump<buffer>(file::bropex(filename));
 	print(support::get_iterator_range(source, {r.lower()-padding , r.lower()}), format);
 	print(support::get_iterator_range(source, r), format, color);
 	print(support::get_iterator_range(source, {r.upper(), r.upper()+padding}), format);

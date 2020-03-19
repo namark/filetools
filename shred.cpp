@@ -31,8 +31,8 @@ enum class Options
 	Terminator,
 	Invalid
 };
-using Option = support::MappedEnum<Options, Options::Invalid, 2>;
-template <> Option::Guts::map_type Option::Guts::map
+using Option = support::mapped_enum<Options, Options::Invalid, 2>;
+template <> Option::guts::map_type Option::guts::map
 {{
 	{ "-s"s, "--size"s },
 	{ "--"s, "--files"s }
@@ -76,7 +76,7 @@ void shred(string path, file::size_type piece_size = default_piece_size)
 			<< victim_size << '\n';
 	}
 
-	file::buffer<> piece;
+	file::buffer_type piece;
 	for(int i = 1; victim_size; ++i, victim_size -= piece.size())
 	{
 
