@@ -64,9 +64,9 @@ Here is an example of installing all dependencies and building all programs.
 git clone https://github.com/namark/filetools
 
 # get the dependencies
-git clone https://github.com/namark/libsimple_file
-git clone https://github.com/namark/libsimple_support
-git clone https://github.com/namark/libsimple_geom
+git clone https://notabug.org/namark/libsimple_file
+git clone https://notabug.org/namark/libsimple_support
+git clone https://notabug.org/namark/libsimple_geom
 
 # install dependencies locally for this porject only
 cd libsimple_file
