@@ -54,7 +54,7 @@ $(BINDIR):
 
 uninstall:
 	-rm $(TARGET)
-	@rmdir $(BINDIR) 2> /dev/null || true
+	@rmdir -p $(BINDIR) 2> /dev/null || true
 	@echo Uninstall complete!
 
 -include $(DEPENDS)
